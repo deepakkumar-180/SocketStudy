@@ -46,6 +46,7 @@ After establishing a connection, clients can send and receive data using send() 
 ## Use Cases of Socket Programming:
 Socket programming finds applications in various domains, including web development, file transfer protocols, online gaming, and real-time communication. It is the foundation for protocols like HTTP, FTP, and SMTP, which power the internet. Socket programming enables the development of both server and client applications, facilitating the exchange of information between devices in a networked environment.
 <h1>programming</h1>
+
 ```
 import socket
 import threading
@@ -97,8 +98,9 @@ client_thread.start()
 
 server_thread.join()
 client_thread.join()
-
-``` 
+```
+<h2>OUTPUT<h2>
+ 
 <img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/7f00dd19-4f7c-4992-a5aa-074a70f7fc54" />
 
 ## Example Use Cases:
