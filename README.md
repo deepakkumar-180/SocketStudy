@@ -61,11 +61,35 @@ def server():
     conn, addr = s.accept()
     print("Connected by:", addr)
 
-    for i in range(3):   # 3 conversations
+    while True:
         data = conn.recv(1024)
-        print("Client says:", data.decode())
+        msg = data.decode()
+        print("Client says:", msg)
 
-        reply = f"Message {i+1} received by server"
+        if msg.lower() == "exit":
+            break
+
+        # Smart reply logic
+        msg_lower = msg.lower()
+
+        if "hello" in msg_lower or "hi" in msg_lower:
+            reply = "Hello! Nice to meet you."
+        
+        elif "my name is" in msg_lower or "i am" in msg_lower:
+            reply = "Nice to meet you! I am your server."
+        
+        elif "how are you" in msg_lower or "what about you" in msg_lower:
+            reply = "I am doing well. Thanks for asking!"
+        
+        elif "fine" in msg_lower:
+            reply = "Glad to hear that! How can I help you?"
+        
+        elif "bye" in msg_lower or "goodbye" in msg_lower:
+            reply = "Goodbye! Have a great day."
+        
+        else:
+            reply = "Can you please clarify?"
+
         conn.send(reply.encode())
 
     conn.close()
@@ -77,14 +101,13 @@ def client():
     c = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     c.connect(("127.0.0.1", 5000))
 
-    messages = [
-        "Hello Server",
-        "I am fine, what about you?",   
-        "Can you send me the current time?"
-    ]
-
-    for msg in messages:
+    while True:
+        msg = input("Enter message from client: ")
         c.send(msg.encode())
+
+        if msg.lower() == "exit":
+            break
+
         response = c.recv(1024)
         print("Server says:", response.decode())
 
@@ -101,7 +124,7 @@ client_thread.join()
 ```
 <h2>OUTPUT<h2>
  
-<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/7f00dd19-4f7c-4992-a5aa-074a70f7fc54" />
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/d4ede690-741f-442c-998a-4dee647045a0" />
 
 ## Example Use Cases:
 
