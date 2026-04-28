@@ -76,13 +76,13 @@ def server():
             reply = "Hello! Nice to meet you."
         
         elif "my name is" in msg_lower or "i am" in msg_lower:
-            reply = "Nice to meet you! I am your server."
+            reply = " I am your server."
         
         elif "how are you" in msg_lower or "what about you" in msg_lower:
             reply = "I am doing well. Thanks for asking!"
         
         elif "fine" in msg_lower:
-            reply = "Glad to hear that! How can I help you?"
+            reply = "How can I help you?"
         
         elif "bye" in msg_lower or "goodbye" in msg_lower:
             reply = "Goodbye! Have a great day."
