@@ -45,6 +45,62 @@ After establishing a connection, clients can send and receive data using send() 
 
 ## Use Cases of Socket Programming:
 Socket programming finds applications in various domains, including web development, file transfer protocols, online gaming, and real-time communication. It is the foundation for protocols like HTTP, FTP, and SMTP, which power the internet. Socket programming enables the development of both server and client applications, facilitating the exchange of information between devices in a networked environment.
+<h1>programming</h1>
+```
+import socket
+import threading
+import time 
+
+def server():
+    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    s.bind(("127.0.0.1", 5000))
+    s.listen(1)
+    print("Server waiting...")
+
+    conn, addr = s.accept()
+    print("Connected by:", addr)
+
+    for i in range(3):   # 3 conversations
+        data = conn.recv(1024)
+        print("Client says:", data.decode())
+
+        reply = f"Message {i+1} received by server"
+        conn.send(reply.encode())
+
+    conn.close()
+    s.close()
+
+def client():
+    time.sleep(1)
+
+    c = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    c.connect(("127.0.0.1", 5000))
+
+    messages = [
+        "Hello Server",
+        "I am fine, what about you?",   
+        "Can you send me the current time?"
+    ]
+
+    for msg in messages:
+        c.send(msg.encode())
+        response = c.recv(1024)
+        print("Server says:", response.decode())
+
+    c.close()
+
+server_thread = threading.Thread(target=server)
+client_thread = threading.Thread(target=client)
+
+server_thread.start()
+client_thread.start()
+
+server_thread.join()
+client_thread.join()
+
+``` 
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/7f00dd19-4f7c-4992-a5aa-074a70f7fc54" />
+
 ## Example Use Cases:
 
 1.	Web servers: Web servers use socket programming to handle incoming HTTP requests from clients, serving web pages and content.
